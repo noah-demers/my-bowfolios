@@ -1,7 +1,6 @@
 'use client';
 
 import { Card, Col, Badge } from 'react-bootstrap';
-// eslint-disable-next-line import/extensions
 import { ProfileCardData } from '@/lib/ProfileCardData';
 import TooltipImage from './TooltipImage';
 
@@ -10,16 +9,14 @@ const ProfileCard = ({ profile }: { profile: ProfileCardData }) => (
     <Card className="h-100">
       <Card.Header>
         <TooltipImage
-          className=""
-          src={profile.picture ? profile.picture : ''}
+          src={profile.picture || ''}
           name={profile.email}
           width={50}
           roundedCircle
+          className=""  // Added empty className here
         />
         <Card.Title>
-          {profile.firstName}
-          &nbsp;
-          {profile.lastName}
+          {profile.firstName} {profile.lastName}
         </Card.Title>
         <Card.Subtitle>
           <span className="date">{profile.title}</span>
@@ -38,7 +35,7 @@ const ProfileCard = ({ profile }: { profile: ProfileCardData }) => (
         {profile.projects.map((project) => (
           <TooltipImage
             key={project.name}
-            src={project.picture ? project.picture : ''}
+            src={project.picture || ''}
             width={50}
             name={project.name}
             roundedCircle

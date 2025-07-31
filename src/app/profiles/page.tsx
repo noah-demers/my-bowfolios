@@ -8,10 +8,12 @@ import ProfileCardHelper from './ProfileCardHelper';
 const ProfilesPage = async () => {
   const profiles = await prisma.profile.findMany();
   profiles.sort((a, b) => a.email.localeCompare(b.email));
+
   return (
     <Container id={PageIDs.profilesPage} style={pageStyle}>
       <Row xs={1} md={2} lg={4} className="g-2">
-        {profiles.map((profile) => (
+        {profiles.map(profile => (
+          // Use ProfileCardHelper for each profile to handle fetching related data
           <ProfileCardHelper key={profile.id} profile={profile} />
         ))}
       </Row>
@@ -20,3 +22,4 @@ const ProfilesPage = async () => {
 };
 
 export default ProfilesPage;
+

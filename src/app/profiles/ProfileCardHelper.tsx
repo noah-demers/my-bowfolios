@@ -9,16 +9,16 @@ const ProfileCardHelper = async ({ profile }: { profile: Profile }) => {
     where: { profileId: profile.id },
   });
   const interests = await prisma.interest.findMany({
-    where: { id: { in: profileInterests.map((profileInterest) => profileInterest.interestId) } },
+    where: { id: { in: profileInterests.map(pi => pi.interestId) } },
   });
-  const interestNames = interests.map((interest) => interest.name);
+  const interestNames = interests.map(interest => interest.name);
   const profileProjects = await prisma.profileProject.findMany({
     where: { profileId: profile.id },
   });
-  console.log('profileProjects: ', profileProjects);
   const projects = await prisma.project.findMany({
-    where: { id: { in: profileProjects.map((profileProject) => profileProject.projectId) } },
+    where: { id: { in: profileProjects.map(pp => pp.projectId) } },
   });
+
   const profileData: ProfileCardData = {
     firstName: profile.firstName,
     lastName: profile.lastName,
@@ -29,6 +29,7 @@ const ProfileCardHelper = async ({ profile }: { profile: Profile }) => {
     interests: interestNames,
     projects,
   };
+
   return <ProfileCard profile={profileData} />;
 };
 
